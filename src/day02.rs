@@ -1,11 +1,7 @@
 use std::ops::RangeInclusive;
 
 use nom::{
-    character::complete::{self},
-    combinator::map,
-    multi::separated_list1,
-    sequence::separated_pair,
-    Parser,
+    character::complete, combinator::map, multi::separated_list1, sequence::separated_pair, Parser,
 };
 
 use crate::convert_iresult_to_owned;
