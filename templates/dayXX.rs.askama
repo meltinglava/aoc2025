@@ -1,0 +1,30 @@
+use crate::convert_iresult_to_owned;
+
+type AocType = !TODO; // factor, value
+
+#[aoc_generator(day{{ "{:02}" | format(day) }})]
+pub fn input_generator(input: &str) -> Result<Vec<AocType>, nom::Err<nom::error::Error<String>>> {
+    todo!("nom_input")
+    .parse(input);
+
+    convert_iresult_to_owned(ret)
+}
+
+#[aoc(day{{ "{:02}" | format(day) }}, part1)]
+fn part1(input: &[AocType]) -> usize {
+    todo!()
+}
+
+// #[aoc(day{{ "{:02}" | format(day) }}, part2)]
+// fn part2(input: &[AocType]) -> usize {
+//    todo!()
+// }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use indoc::indoc;
+    const TEST_INPUT: &str = indoc!{"
+        TEST_INPUT
+    "};
+}

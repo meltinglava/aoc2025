@@ -8,10 +8,13 @@ edition = "2021"
 [dependencies]
 aoc-runner = "0.3"
 aoc-runner-derive = "0.3"
+askama = "0.14.0"
+clap = { version = "4.5.53", features = ["derive"] }
 dp_macro = "0.3.2"
 indexmap = "2.12.1"
 indoc = "2.0.7"
 itertools = "0.14.0"
+jiff = "0.2.16"
 nom = "8.0.0"
 nom_locate = "5.0.0"
 num = "0.4.3"
