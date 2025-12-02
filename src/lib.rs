@@ -1,6 +1,7 @@
 use nom::{error::Error, Err as NomErr};
 
 mod day01;
+mod day02;
 
 extern crate aoc_runner;
 
