@@ -22,34 +22,34 @@ pub fn input_generator(input: &str) -> Result<Vec<AocType>, nom::Err<nom::error:
     convert_iresult_to_owned(ret)
 }
 
-fn find_joltage(input: &[usize]) -> usize {
-    let mut current_high = 0;
-    let mut position = 0;
-    let mut iter = input.iter().enumerate().peekable();
-    while let Some((i, joltage)) = iter.next() {
-        if joltage > &current_high && iter.peek().is_some() {
-            current_high = *joltage;
-            position = i;
+fn find_joltage(input: &[usize], size: usize) -> usize {
+    let mut to_start = 0;
+    let mut accumulator = 0;
+    let mut end = input.len() - size + 1;
+    for _index in 0..size {
+        accumulator *= 10;
+        let mut max_value = 0;
+        for (i, battery) in input.iter().enumerate().take(end).skip(to_start) {
+            if *battery > max_value {
+                max_value = *battery;
+                to_start = i + 1;
+            }
         }
+        accumulator += max_value;
+        end += 1;
     }
-    let mut second_high = 0;
-    for (i, joltage) in input.iter().enumerate().skip(position) {
-        if joltage > &second_high && i != position {
-            second_high = *joltage;
-        }
-    }
-    current_high * 10 + second_high
+    accumulator
 }
 
 #[aoc(day03, part1)]
 fn part1(input: &[AocType]) -> usize {
-    input.iter().map(|line| find_joltage(line)).sum()
+    input.iter().map(|line| find_joltage(line, 2)).sum()
 }
 
-// #[aoc(day03, part2)]
-// fn part2(input: &[AocType]) -> usize {
-//    todo!()
-// }
+#[aoc(day03, part2)]
+fn part2(input: &[AocType]) -> usize {
+    input.iter().map(|line| find_joltage(line, 12)).sum()
+}
 
 #[cfg(test)]
 mod tests {
@@ -65,5 +65,22 @@ mod tests {
     #[test]
     fn test_p1() {
         assert_eq!(part1(&input_generator(TEST_INPUT).unwrap()), 357);
+    }
+
+    #[test]
+    fn test_p2() {
+        assert_eq!(part2(&input_generator(TEST_INPUT).unwrap()), 3121910778619);
+    }
+
+    #[test]
+    fn test_line_p1() {
+        let line = "987654321111111";
+        assert_eq!(find_joltage(&input_generator(line).unwrap()[0], 2), 98);
+    }
+
+    #[test]
+    fn test_line_p1_2() {
+        let line = "811111111111119";
+        assert_eq!(find_joltage(&input_generator(line).unwrap()[0], 2), 89);
     }
 }
